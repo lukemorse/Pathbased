@@ -14,6 +14,15 @@
 		AF8AC9471D5CF2CF00D1C3E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF8AC9451D5CF2CF00D1C3E4 /* Main.storyboard */; };
 		AF8AC9491D5CF2CF00D1C3E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8AC9481D5CF2CF00D1C3E4 /* Assets.xcassets */; };
 		AF8AC94C1D5CF2CF00D1C3E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF8AC94A1D5CF2CF00D1C3E4 /* LaunchScreen.storyboard */; };
+		AF8AC9551D5D251900D1C3E4 /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = AF8AC9531D5D251900D1C3E4 /* Explosion.sks */; };
+		AF8AC9561D5D251900D1C3E4 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = AF8AC9541D5D251900D1C3E4 /* spark.png */; };
+		AF8AC9581D5E18F400D1C3E4 /* sprinkle.png in Resources */ = {isa = PBXBuildFile; fileRef = AF8AC9571D5E18F400D1C3E4 /* sprinkle.png */; };
+		AF8AC95B1D5E1B8600D1C3E4 /* greenSprinkle.png in Resources */ = {isa = PBXBuildFile; fileRef = AF8AC9591D5E1B8600D1C3E4 /* greenSprinkle.png */; };
+		AF8AC95C1D5E1B8600D1C3E4 /* yellowSprinkle.png in Resources */ = {isa = PBXBuildFile; fileRef = AF8AC95A1D5E1B8600D1C3E4 /* yellowSprinkle.png */; };
+		AF8F128E1D63A55C008F2D71 /* mouth.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AF8F128D1D63A55C008F2D71 /* mouth.atlas */; };
+		AF8F12981D63EC93008F2D71 /* highHatRoll.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF8F12951D63EC93008F2D71 /* highHatRoll.mp3 */; };
+		AF8F12991D63EC93008F2D71 /* coin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF8F12961D63EC93008F2D71 /* coin.mp3 */; };
+		AF8F129A1D63EC93008F2D71 /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF8F12971D63EC93008F2D71 /* background.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +35,15 @@
 		AF8AC9481D5CF2CF00D1C3E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF8AC94B1D5CF2CF00D1C3E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF8AC94D1D5CF2CF00D1C3E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF8AC9531D5D251900D1C3E4 /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
+		AF8AC9541D5D251900D1C3E4 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		AF8AC9571D5E18F400D1C3E4 /* sprinkle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprinkle.png; sourceTree = "<group>"; };
+		AF8AC9591D5E1B8600D1C3E4 /* greenSprinkle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenSprinkle.png; sourceTree = "<group>"; };
+		AF8AC95A1D5E1B8600D1C3E4 /* yellowSprinkle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowSprinkle.png; sourceTree = "<group>"; };
+		AF8F128D1D63A55C008F2D71 /* mouth.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = mouth.atlas; sourceTree = "<group>"; };
+		AF8F12951D63EC93008F2D71 /* highHatRoll.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = highHatRoll.mp3; sourceTree = "<group>"; };
+		AF8F12961D63EC93008F2D71 /* coin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coin.mp3; sourceTree = "<group>"; };
+		AF8F12971D63EC93008F2D71 /* background.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +60,15 @@
 		AF8AC9311D5CF2CF00D1C3E4 = {
 			isa = PBXGroup;
 			children = (
+				AF8AC9541D5D251900D1C3E4 /* spark.png */,
+				AF8AC9591D5E1B8600D1C3E4 /* greenSprinkle.png */,
+				AF8AC95A1D5E1B8600D1C3E4 /* yellowSprinkle.png */,
+				AF8AC9571D5E18F400D1C3E4 /* sprinkle.png */,
+				AF8F12951D63EC93008F2D71 /* highHatRoll.mp3 */,
+				AF8F12961D63EC93008F2D71 /* coin.mp3 */,
+				AF8F12971D63EC93008F2D71 /* background.mp3 */,
+				AF8F128D1D63A55C008F2D71 /* mouth.atlas */,
+				AF8AC9531D5D251900D1C3E4 /* Explosion.sks */,
 				AF8AC93C1D5CF2CF00D1C3E4 /* pathBased */,
 				AF8AC93B1D5CF2CF00D1C3E4 /* Products */,
 			);
@@ -130,9 +157,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF8AC9401D5CF2CF00D1C3E4 /* GameScene.sks in Resources */,
+				AF8AC9561D5D251900D1C3E4 /* spark.png in Resources */,
+				AF8AC9581D5E18F400D1C3E4 /* sprinkle.png in Resources */,
+				AF8F12981D63EC93008F2D71 /* highHatRoll.mp3 in Resources */,
 				AF8AC94C1D5CF2CF00D1C3E4 /* LaunchScreen.storyboard in Resources */,
+				AF8AC95C1D5E1B8600D1C3E4 /* yellowSprinkle.png in Resources */,
+				AF8F129A1D63EC93008F2D71 /* background.mp3 in Resources */,
 				AF8AC9491D5CF2CF00D1C3E4 /* Assets.xcassets in Resources */,
+				AF8AC95B1D5E1B8600D1C3E4 /* greenSprinkle.png in Resources */,
 				AF8AC9471D5CF2CF00D1C3E4 /* Main.storyboard in Resources */,
+				AF8AC9551D5D251900D1C3E4 /* Explosion.sks in Resources */,
+				AF8F128E1D63A55C008F2D71 /* mouth.atlas in Resources */,
+				AF8F12991D63EC93008F2D71 /* coin.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +333,7 @@
 				AF8AC9521D5CF2CF00D1C3E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

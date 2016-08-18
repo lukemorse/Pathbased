@@ -14,6 +14,11 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+           }
+    
+
+    override func viewWillLayoutSubviews() {
+        
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.
             let skView = self.view as! SKView
@@ -27,8 +32,10 @@ class GameViewController: UIViewController {
             scene.size = skView.bounds.size
             scene.scaleMode = .AspectFill
             
+            
             skView.presentScene(scene)
         }
+
     }
 
     override func shouldAutorotate() -> Bool {

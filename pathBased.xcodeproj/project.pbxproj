@@ -12,6 +12,8 @@
 		AF81876E1D66314000C0DD4F /* greenSprinkle.png in Resources */ = {isa = PBXBuildFile; fileRef = AF81876B1D66314000C0DD4F /* greenSprinkle.png */; };
 		AF81876F1D66314000C0DD4F /* yellowSprinkle.png in Resources */ = {isa = PBXBuildFile; fileRef = AF81876C1D66314000C0DD4F /* yellowSprinkle.png */; };
 		AF8187701D66314000C0DD4F /* sprinkle.png in Resources */ = {isa = PBXBuildFile; fileRef = AF81876D1D66314000C0DD4F /* sprinkle.png */; };
+		AF8187721D66423700C0DD4F /* red square.png in Resources */ = {isa = PBXBuildFile; fileRef = AF8187711D66423700C0DD4F /* red square.png */; };
+		AF8187741D6642C300C0DD4F /* RedSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8187731D6642C300C0DD4F /* RedSquare.swift */; };
 		AF8AC93E1D5CF2CF00D1C3E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AC93D1D5CF2CF00D1C3E4 /* AppDelegate.swift */; };
 		AF8AC9401D5CF2CF00D1C3E4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AF8AC93F1D5CF2CF00D1C3E4 /* GameScene.sks */; };
 		AF8AC9421D5CF2CF00D1C3E4 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AC9411D5CF2CF00D1C3E4 /* GameScene.swift */; };
@@ -32,6 +34,8 @@
 		AF81876B1D66314000C0DD4F /* greenSprinkle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = greenSprinkle.png; path = mouth.atlas/greenSprinkle.png; sourceTree = "<group>"; };
 		AF81876C1D66314000C0DD4F /* yellowSprinkle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yellowSprinkle.png; path = pathBased/Assets.xcassets/yellowSprinkle.imageset/yellowSprinkle.png; sourceTree = "<group>"; };
 		AF81876D1D66314000C0DD4F /* sprinkle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sprinkle.png; path = pathBased/Assets.xcassets/sprinkle.imageset/sprinkle.png; sourceTree = "<group>"; };
+		AF8187711D66423700C0DD4F /* red square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red square.png"; sourceTree = "<group>"; };
+		AF8187731D6642C300C0DD4F /* RedSquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedSquare.swift; sourceTree = "<group>"; };
 		AF8AC93A1D5CF2CF00D1C3E4 /* pathBased.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pathBased.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF8AC93D1D5CF2CF00D1C3E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF8AC93F1D5CF2CF00D1C3E4 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -77,6 +81,7 @@
 				AF8AC9531D5D251900D1C3E4 /* Explosion.sks */,
 				AF81876B1D66314000C0DD4F /* greenSprinkle.png */,
 				AF81876C1D66314000C0DD4F /* yellowSprinkle.png */,
+				AF8187711D66423700C0DD4F /* red square.png */,
 				AF81876D1D66314000C0DD4F /* sprinkle.png */,
 				AF8AC93C1D5CF2CF00D1C3E4 /* pathBased */,
 				AF8AC93B1D5CF2CF00D1C3E4 /* Products */,
@@ -97,6 +102,7 @@
 				AF8AC93D1D5CF2CF00D1C3E4 /* AppDelegate.swift */,
 				AF8AC93F1D5CF2CF00D1C3E4 /* GameScene.sks */,
 				AF8AC9411D5CF2CF00D1C3E4 /* GameScene.swift */,
+				AF8187731D6642C300C0DD4F /* RedSquare.swift */,
 				AF8187691D661EB000C0DD4F /* Mouth.swift */,
 				AF8187671D6603FA00C0DD4F /* IceCream.swift */,
 				AF8AC9431D5CF2CF00D1C3E4 /* GameViewController.swift */,
@@ -173,6 +179,7 @@
 				AF8AC94C1D5CF2CF00D1C3E4 /* LaunchScreen.storyboard in Resources */,
 				AF8F129A1D63EC93008F2D71 /* background.mp3 in Resources */,
 				AF8AC9491D5CF2CF00D1C3E4 /* Assets.xcassets in Resources */,
+				AF8187721D66423700C0DD4F /* red square.png in Resources */,
 				AF81876E1D66314000C0DD4F /* greenSprinkle.png in Resources */,
 				AF8187701D66314000C0DD4F /* sprinkle.png in Resources */,
 				AF8AC9471D5CF2CF00D1C3E4 /* Main.storyboard in Resources */,
@@ -189,6 +196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF8187741D6642C300C0DD4F /* RedSquare.swift in Sources */,
 				AF8AC9421D5CF2CF00D1C3E4 /* GameScene.swift in Sources */,
 				AF8AC9441D5CF2CF00D1C3E4 /* GameViewController.swift in Sources */,
 				AF8187681D6603FA00C0DD4F /* IceCream.swift in Sources */,

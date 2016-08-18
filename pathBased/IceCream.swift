@@ -22,6 +22,8 @@ class IceCream: SKSpriteNode {
         let body = SKPhysicsBody.init(rectangleOfSize: imageTexture.size())
         body.categoryBitMask = BodyType.iceCream.rawValue
         body.contactTestBitMask = BodyType.mouth.rawValue
+        body.dynamic = false
+        body.affectedByGravity = false
         
         self.physicsBody = body
         self.name = "iceCream"

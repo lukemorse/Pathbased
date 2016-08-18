@@ -12,7 +12,7 @@ import SpriteKit
 enum BodyType:UInt32 {
     case iceCream = 1
     case mouth = 2
-    case rubber = 4
+    case redSquare = 4
     case spike = 8
     case hole = 16
     case toothbrush = 32
@@ -21,8 +21,9 @@ enum BodyType:UInt32 {
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var score = 0
-    var mouth: SKSpriteNode?
+    var mouth: Mouth?
     var iceCream: IceCream?
+    var redSquare: RedSquare?
     
     var mouthShootAnimation: SKAction?
     let tapRecognizer = UITapGestureRecognizer()
@@ -41,6 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.backgroundColor = SKColor.blackColor()
         physicsWorld.contactDelegate = self
         
+        
         setUpAnimation()
         
         createIceCream()
@@ -52,7 +54,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         tapRecognizer.addTarget(self, action:#selector(GameScene.shootMouth(_:)))
         self.view!.addGestureRecognizer(tapRecognizer)
-        
     }
     
     
@@ -295,8 +296,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 explosion2.runAction(SKAction.sequence([wait, removeExplotion]))
                 explosion3.runAction(SKAction.sequence([wait, removeExplotion]))
                 
-                if score >= 10 {
-                    self.winLabel()
+                if score == 10 {
+                    
+                    createRedSquare()
+                    self.createIceCream()
+                    
                 } else {
                     self.createIceCream()
                 }
@@ -305,10 +309,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             //  END EXPLOSION //
             
-            
         }
         
+    }
+    
+    func createRedSquare() {
         
+        redSquare = RedSquare(imageNamed: "red square")
+        
+//        let RandW = CGFloat(Int(rand()) % Int(self.view!.bounds.width))
+//        let RandH = CGFloat(Int(rand()) % Int(self.view!.bounds.height))
+//        let initPos = CGPointMake(RandW,RandH)
+        
+        addChild(redSquare!)
+        let position = CGPoint(x: size.width / 2, y: size.height / 2)
+        redSquare!.position = position
     }
     
     func winLabel() {

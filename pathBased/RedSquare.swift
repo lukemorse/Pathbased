@@ -1,5 +1,5 @@
 //
-//  Mouth.swift
+//  RedSquare.swift
 //  pathBased
 //
 //  Created by Luke Morse on 8/18/16.
@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class Mouth:SKSpriteNode {
+class RedSquare:SKSpriteNode {
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -21,14 +21,16 @@ class Mouth:SKSpriteNode {
         super.init(texture: imageTexture, color: SKColor.whiteColor(), size: imageTexture.size())
         
         let body = SKPhysicsBody.init(rectangleOfSize: imageTexture.size())
-        body.categoryBitMask = BodyType.mouth.rawValue
-        body.contactTestBitMask = BodyType.iceCream.rawValue | BodyType.redSquare.rawValue
-        body.collisionBitMask = BodyType.redSquare.rawValue
-        
+        body.categoryBitMask = BodyType.redSquare.rawValue
+        body.contactTestBitMask = BodyType.mouth.rawValue
+        body.collisionBitMask = BodyType.mouth.rawValue
+        body.affectedByGravity = false
+        body.dynamic = false
         self.physicsBody = body
-        self.name = "mouth"
+        
+        self.name = "redSquare"
         self.userInteractionEnabled = false
-        self.setScale(0.11)
+        self.setScale(0.5)
     }
     
 }

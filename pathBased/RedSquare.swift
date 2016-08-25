@@ -21,16 +21,19 @@ class RedSquare:SKSpriteNode {
         super.init(texture: imageTexture, color: SKColor.whiteColor(), size: imageTexture.size())
         
         let body = SKPhysicsBody.init(rectangleOfSize: imageTexture.size())
+        
         body.categoryBitMask = BodyType.redSquare.rawValue
-        body.contactTestBitMask = BodyType.mouth.rawValue
+//        body.contactTestBitMask = BodyType.mouth.rawValue
         body.collisionBitMask = BodyType.mouth.rawValue
+        
         body.affectedByGravity = false
         body.dynamic = false
-        self.physicsBody = body
+        body.mass = 1000
         
+        self.physicsBody = body
         self.name = "redSquare"
         self.userInteractionEnabled = false
-        self.setScale(0.5)
+        self.setScale(0.9)
     }
     
 }

@@ -14,6 +14,7 @@
 		AF8187701D66314000C0DD4F /* sprinkle.png in Resources */ = {isa = PBXBuildFile; fileRef = AF81876D1D66314000C0DD4F /* sprinkle.png */; };
 		AF8187721D66423700C0DD4F /* red square.png in Resources */ = {isa = PBXBuildFile; fileRef = AF8187711D66423700C0DD4F /* red square.png */; };
 		AF8187741D6642C300C0DD4F /* RedSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8187731D6642C300C0DD4F /* RedSquare.swift */; };
+		AF8187781D68BA6700C0DD4F /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = AF8187771D68BA6700C0DD4F /* head.png */; };
 		AF8AC93E1D5CF2CF00D1C3E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AC93D1D5CF2CF00D1C3E4 /* AppDelegate.swift */; };
 		AF8AC9401D5CF2CF00D1C3E4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AF8AC93F1D5CF2CF00D1C3E4 /* GameScene.sks */; };
 		AF8AC9421D5CF2CF00D1C3E4 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AC9411D5CF2CF00D1C3E4 /* GameScene.swift */; };
@@ -36,6 +37,7 @@
 		AF81876D1D66314000C0DD4F /* sprinkle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sprinkle.png; path = pathBased/Assets.xcassets/sprinkle.imageset/sprinkle.png; sourceTree = "<group>"; };
 		AF8187711D66423700C0DD4F /* red square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red square.png"; sourceTree = "<group>"; };
 		AF8187731D6642C300C0DD4F /* RedSquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedSquare.swift; sourceTree = "<group>"; };
+		AF8187771D68BA6700C0DD4F /* head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head.png; sourceTree = "<group>"; };
 		AF8AC93A1D5CF2CF00D1C3E4 /* pathBased.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pathBased.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF8AC93D1D5CF2CF00D1C3E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF8AC93F1D5CF2CF00D1C3E4 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				AF81876C1D66314000C0DD4F /* yellowSprinkle.png */,
 				AF8187711D66423700C0DD4F /* red square.png */,
 				AF81876D1D66314000C0DD4F /* sprinkle.png */,
+				AF8187771D68BA6700C0DD4F /* head.png */,
 				AF8AC93C1D5CF2CF00D1C3E4 /* pathBased */,
 				AF8AC93B1D5CF2CF00D1C3E4 /* Products */,
 			);
@@ -184,6 +187,7 @@
 				AF8187701D66314000C0DD4F /* sprinkle.png in Resources */,
 				AF8AC9471D5CF2CF00D1C3E4 /* Main.storyboard in Resources */,
 				AF8AC9551D5D251900D1C3E4 /* Explosion.sks in Resources */,
+				AF8187781D68BA6700C0DD4F /* head.png in Resources */,
 				AF8F128E1D63A55C008F2D71 /* mouth.atlas in Resources */,
 				AF8F12991D63EC93008F2D71 /* coin.mp3 in Resources */,
 			);
@@ -316,6 +320,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = pathBased/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Lukemorse.pathBased;
@@ -327,6 +332,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = pathBased/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Lukemorse.pathBased;

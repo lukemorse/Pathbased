@@ -18,23 +18,26 @@ enum BodyType:UInt32 {
     case toothbrush = 32
 }
 
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var score = 0
+    
+    var touchPoint: CGPoint = CGPoint()
+    var touching: Bool = false
+    
     var mouth: Mouth?
     var iceCream: IceCream?
     var redSquare: RedSquare?
+    var head: SKSpriteNode?
     
-    var mouthShootAnimation: SKAction?
+    var mouthMovingAnimation: SKAction?
     let tapRecognizer = UITapGestureRecognizer()
-    
-//    let iceCreamCategory:UInt32 = 0x1 << 0
-//    let mouthCategory:UInt32 = 0x1 << 1
     
     var backgroundMusic: SKAudioNode!
     var highHatSound: SKAudioNode!
     var coinSound: SKAudioNode!
-    var thereAreNoMouths = true
+//    var thereAreNoMouths = true
     
     override func didMoveToView(view: SKView) {
         
@@ -42,17 +45,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.backgroundColor = SKColor.blackColor()
         physicsWorld.contactDelegate = self
         
-        
         setUpAnimation()
         
+        createHead()
+        
+        fadeInMouth()
+        
         createIceCream()
+        
+//        createRedSquare()
         
         if let musicURL = NSBundle.mainBundle().URLForResource("background", withExtension: "mp3") {
             backgroundMusic = SKAudioNode(URL: musicURL)
             addChild(backgroundMusic)
         }
         
-        tapRecognizer.addTarget(self, action:#selector(GameScene.shootMouth(_:)))
+//        tapRecognizer.addTarget(self, action:#selector(GameScene.shootMouth(_:)))
         self.view!.addGestureRecognizer(tapRecognizer)
     }
     
@@ -63,13 +71,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        
 //    }
     
+    func createHead() {
+        
+        head = SKSpriteNode(imageNamed: "head")
+        head!.physicsBody?.affectedByGravity = false
+        head!.position = CGPointMake(view!.bounds.width / 2, 50)
+        head!.setScale(0.11)
+        
+        addChild(head!)
+    }
+    
+    func fadeInMouth() {
+        
+        mouth = Mouth(imageNamed: "mouth1")
+        mouth!.position = CGPoint(x: self.view!.bounds.width / 2, y: 50)
+        mouth!.alpha = 0.0
+        
+        addChild(mouth!)
+        
+        let fadeIn = SKAction.fadeAlphaTo(1.0, duration: 2.0)
+        let seq = SKAction.sequence([fadeIn, mouthMovingAnimation!])
+        mouth!.runAction(seq)
+    }
+    
     func createIceCream() {
         
         iceCream = IceCream(imageNamed: "ice cream")
         
-        let RandW = CGFloat(Int(rand()) % Int(self.view!.bounds.width))
-        let RandH = CGFloat(Int(rand()) % Int(self.view!.bounds.height))
-        let initPos = CGPointMake(RandW,RandH)
+//        let RandW = CGFloat(Int(arc4random_uniform(UInt32(self.view!.bounds.width))))
+//        let RandH = CGFloat(Int(arc4random_uniform(UInt32(self.view!.bounds.height))))
+//        let initPos = CGPointMake(RandW,RandH)
+        let initX = CGFloat(-iceCream!.size.width)
+        let initY = CGFloat(view!.bounds.height + iceCream!.size.height)
+        let initPos = CGPointMake(initX,initY)
         
         addChild(iceCream!)
         iceCream!.position = initPos
@@ -80,10 +114,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func moveIceCream(initPos:CGPoint) {
         
-        var randomPoints:Array = generateFourRandomPoints()
+        var randomPoints = generateFourRandomPoints()
         randomPoints.insert(initPos, atIndex: 0)
         
         let times = generateTimes(randomPoints)
+        print(times)
         
         let point2 = randomPoints[1], point3 = randomPoints[2], point4 = randomPoints[3], point5 = randomPoints[4]
         
@@ -93,15 +128,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let move2 = SKAction.moveTo(point3, duration: NSTimeInterval(time2))
         let move3 = SKAction.moveTo(point4, duration: NSTimeInterval(time3))
         let move4 = SKAction.moveTo(point5, duration: NSTimeInterval(time4))
-        let move5 = SKAction.moveTo(initPos, duration: NSTimeInterval(time5))
+        let move5 = SKAction.moveTo(point2, duration: NSTimeInterval(time5))
         
+        let seq = SKAction.sequence([move2, move3, move4, move5])
         
-//        print(randomPoints)
-//        print(times)
-        
-        
-        let seq = SKAction.sequence([move1, move2, move3, move4, move5])
+        print("HERE: " + String(iceCream!.position))
+        iceCream!.runAction(move1)
         iceCream!.runAction(SKAction.repeatActionForever(seq))
+        
+        print(randomPoints)
         
     }
     
@@ -124,8 +159,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let yDiff4 = abs(points[4].y - points[3].y)
         let time4 = Float(sqrt(pow(xDiff4, 2) + pow(yDiff4, 2)) / 200)
         
-        let xDiff5 = abs(points[0].x - points[4].x)
-        let yDiff5 = abs(points[0].y - points[4].y)
+        let xDiff5 = abs(points[1].x - points[4].x)
+        let yDiff5 = abs(points[1].y - points[4].y)
         let time5 = Float(sqrt(pow(xDiff5, 2) + pow(yDiff5, 2)) / 200)
         
         return [time1, time2, time3, time4, time5]
@@ -135,23 +170,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func generateFourRandomPoints() -> [CGPoint] {
         
+//        keep ice cream in the top half by selecting a random point in the bottom half and then adding half of the screens height to it.
         let widthMax = self.view!.bounds.width - 10
         let heightMax = self.view!.bounds.height / 2
+//        let offset = heightMax - iceCream!.size.height / 2
+//        let offset = CGFloat(10)
         
-        let RandW1 = CGFloat(Int(rand()) % Int(widthMax)) + CGFloat(5)
-        let RandH1 = CGFloat(Int(rand()) % Int(heightMax)) + heightMax
+        let RandW1 = CGFloat(Int(arc4random_uniform(UInt32(widthMax)))) + CGFloat(5)
+        let RandH1 = CGFloat(Int(arc4random_uniform(UInt32(heightMax)))) + CGFloat(heightMax)
+//        let RandH1 = CGFloat(Int(arc4random_uniform(UInt32(heightMax))))
         let point1 = CGPoint(x: RandW1, y: RandH1)
         
-        let RandW2 = CGFloat(Int(rand()) % Int(widthMax)) + CGFloat(5)
-        let RandH2 = CGFloat(Int(rand()) % Int(heightMax)) + heightMax
+        let RandW2 = CGFloat(Int(arc4random_uniform(UInt32(widthMax)))) + CGFloat(5)
+        let RandH2 = CGFloat(Int(arc4random_uniform(UInt32(heightMax)))) + CGFloat(heightMax)
         let point2 = CGPoint(x: RandW2, y: RandH2)
         
-        let RandW3 = CGFloat(Int(rand()) % Int(widthMax)) + CGFloat(5)
-        let RandH3 = CGFloat(Int(rand()) % Int(heightMax)) + heightMax
+        let RandW3 = CGFloat(Int(arc4random_uniform(UInt32(widthMax)))) + CGFloat(5)
+        let RandH3 = CGFloat(Int(arc4random_uniform(UInt32(heightMax)))) + CGFloat(heightMax)
         let point3 = CGPoint(x: RandW3, y: RandH3)
         
-        let RandW4 = CGFloat(Int(rand()) % Int(widthMax)) + CGFloat(5)
-        let RandH4 = CGFloat(Int(rand()) % Int(heightMax)) + heightMax
+        let RandW4 = CGFloat(Int(arc4random_uniform(UInt32(widthMax)))) + CGFloat(5)
+        let RandH4 = CGFloat(Int(arc4random_uniform(UInt32(heightMax)))) + CGFloat(heightMax)
         let point4 = CGPoint(x: RandW4, y: RandH4)
         
         return [point1, point2, point3, point4]
@@ -183,46 +222,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let atlasAnimation = SKAction.animateWithTextures(atlasTextures, timePerFrame: 1.0/30, resize: false , restore:false )
         
-        mouthShootAnimation =  SKAction.repeatActionForever(atlasAnimation)
+        mouthMovingAnimation =  SKAction.repeatActionForever(atlasAnimation)
         
     }
     
     
     
-    func shootMouth(sender:UITapGestureRecognizer) {
+    func shootMouth() {
         
-        if thereAreNoMouths {
-            
-            thereAreNoMouths = false
-            
-            var tapLocation = sender.locationInView(sender.view)
-            tapLocation = self.convertPointToView(tapLocation)
-            
-            mouth = Mouth(imageNamed: "mouth1")
-            addChild(mouth!)
-            mouth!.position = CGPoint(x: self.view!.bounds.width / 2, y: 0)
-            
-            let shootAction = SKAction.moveTo(tapLocation, duration: 1.0)
-            let wait = SKAction.waitForDuration(1.0)
-            let remove = SKAction.runBlock {self.mouth!.removeFromParent()}
-            let resetMouthBool = SKAction.runBlock {self.thereAreNoMouths = true}
-            
-            if let soundURL = NSBundle.mainBundle().URLForResource("highHatRoll", withExtension: "mp3") {
-                highHatSound = SKAudioNode(URL: soundURL)
-                addChild(highHatSound)
-            }
-            removeSound(highHatSound, waitTime: 1.0)
-            
-            mouth!.runAction(mouthShootAnimation!)
-            let seq = SKAction.sequence([shootAction, remove])
-            mouth!.runAction(seq)
-            
-            let seq2 = SKAction.sequence([wait, resetMouthBool])
-            self.runAction(seq2)
-            //        mouth!.runAction(shootAction)
-            //        mouth!.runAction(mouthShootAnimation!)
-            
+        if let soundURL = NSBundle.mainBundle().URLForResource("highHatRoll", withExtension: "mp3") {
+            highHatSound = SKAudioNode(URL: soundURL)
+            addChild(highHatSound)
         }
+        
+        removeSound(highHatSound, waitTime: 1.0)
+        
+        let wait = SKAction.waitForDuration(2.5)
+        let killMouth = SKAction.runBlock { 
+            self.mouth!.removeAllActions()
+            self.mouth!.removeFromParent()
+        }
+        let fadeBackIn = SKAction.runBlock { self.fadeInMouth()}
+        let seq = SKAction.sequence([wait,killMouth,fadeBackIn])
+        self.runAction(seq)
     }
     
     
@@ -233,6 +255,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         runAction(SKAction.sequence([wait,removeSound]))
     }
     
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first
+        let location = touch!.locationInNode(self)
+        if mouth!.frame.contains(location) {
+            touchPoint = location
+            touching = true
+        }
+    }
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first
+        let location = touch!.locationInNode(self)
+        touchPoint = location
+//        mouth?.position = location
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        if touching {shootMouth()}
+        
+        touching = false
+    }
+    
+    func convertToRange(vector:CGVector) -> CGVector {
+        
+        let returnX = (vector.dx / 3000) * 500
+        let returnY = (vector.dy / 3000) * 500
+        
+        return CGVector(dx: returnX, dy: returnY)
+    }
     
     func didBeginContact(contact: SKPhysicsContact) {
         
@@ -271,6 +324,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 mouth!.removeAllActions()
                 mouth!.removeFromParent()
+                fadeInMouth()
                 removeSound(highHatSound, waitTime: 0.0)
                 
                 if let soundURL = NSBundle.mainBundle().URLForResource("coin", withExtension: "mp3") {
@@ -296,9 +350,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 explosion2.runAction(SKAction.sequence([wait, removeExplotion]))
                 explosion3.runAction(SKAction.sequence([wait, removeExplotion]))
                 
-                if score == 10 {
+                if score == 1 {
                     
-                    createRedSquare()
+                    let create = SKAction.runBlock({ self.createRedSquare()})
+                    let wait = SKAction.waitForDuration(3.0)
+                    let seq = SKAction.sequence([create,wait,create])
+                    self.runAction(seq)
+                    
                     self.createIceCream()
                     
                 } else {
@@ -317,13 +375,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         redSquare = RedSquare(imageNamed: "red square")
         
-//        let RandW = CGFloat(Int(rand()) % Int(self.view!.bounds.width))
-//        let RandH = CGFloat(Int(rand()) % Int(self.view!.bounds.height))
-//        let initPos = CGPointMake(RandW,RandH)
-        
         addChild(redSquare!)
-        let position = CGPoint(x: size.width / 2, y: size.height / 2)
-        redSquare!.position = position
+        let leftPosition = CGPoint(x: (redSquare?.size.width)! / 2, y: size.height / 2)
+        let rightPosition = CGPoint(x: size.width - (redSquare?.size.width)! / 2, y: size.height / 2)
+        redSquare!.position = leftPosition
+        
+        let moveRight = SKAction.moveTo(rightPosition, duration: 3.0)
+        let moveLeft = SKAction.moveTo(leftPosition, duration: 3.0)
+        let seq = SKAction.sequence([moveRight,moveLeft])
+        
+        redSquare!.runAction(SKAction.repeatActionForever(seq))
     }
     
     func winLabel() {
@@ -337,5 +398,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        
+        if touching {
+            let dt:CGFloat = 1.0/60.0
+            let distance = CGVector(dx: touchPoint.x-mouth!.position.x, dy: touchPoint.y-mouth!.position.y)
+            let velocity = CGVector(dx: distance.dx/dt * 0.5, dy: distance.dy/dt * 0.5)
+            let convVel = convertToRange(velocity)
+            mouth!.physicsBody!.velocity = convVel
+        }
     }
+    
 }

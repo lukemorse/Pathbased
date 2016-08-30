@@ -21,15 +21,19 @@ enum BodyType:UInt32 {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    var score = 0
+    var score = 9
+    var scoreLabel: SKLabelNode?
     
     var touchPoint: CGPoint = CGPoint()
     var touching: Bool = false
+    var mouthIsReady: Bool = false
     
     var mouth: Mouth?
     var iceCream: IceCream?
     var redSquare: RedSquare?
+    var redSquare2: RedSquare?
     var head: SKSpriteNode?
+    var spikes = [Spike?](count:4, repeatedValue: nil)
     
     var mouthMovingAnimation: SKAction?
     let tapRecognizer = UITapGestureRecognizer()
@@ -37,6 +41,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var backgroundMusic: SKAudioNode!
     var highHatSound: SKAudioNode!
     var coinSound: SKAudioNode!
+    var teethSound: SKAudioNode!
+    var bounceSound: SKAudioNode!
 //    var thereAreNoMouths = true
     
     override func didMoveToView(view: SKView) {
@@ -53,7 +59,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         createIceCream()
         
-//        createRedSquare()
+        makeScoreLabel()
         
         if let musicURL = NSBundle.mainBundle().URLForResource("background", withExtension: "mp3") {
             backgroundMusic = SKAudioNode(URL: musicURL)
@@ -83,6 +89,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func fadeInMouth() {
         
+        mouthIsReady = false
+        
         mouth = Mouth(imageNamed: "mouth1")
         mouth!.position = CGPoint(x: self.view!.bounds.width / 2, y: 50)
         mouth!.alpha = 0.0
@@ -90,7 +98,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(mouth!)
         
         let fadeIn = SKAction.fadeAlphaTo(1.0, duration: 2.0)
-        let seq = SKAction.sequence([fadeIn, mouthMovingAnimation!])
+        let readyMouth = SKAction.runBlock {self.mouthIsReady = true}
+        let seq = SKAction.sequence([fadeIn, readyMouth, mouthMovingAnimation!])
+        
         mouth!.runAction(seq)
     }
     
@@ -105,8 +115,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let initY = CGFloat(view!.bounds.height + iceCream!.size.height)
         let initPos = CGPointMake(initX,initY)
         
-        addChild(iceCream!)
         iceCream!.position = initPos
+        addChild(iceCream!)
         
         moveIceCream(initPos)
         
@@ -118,7 +128,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         randomPoints.insert(initPos, atIndex: 0)
         
         let times = generateTimes(randomPoints)
-        print(times)
         
         let point2 = randomPoints[1], point3 = randomPoints[2], point4 = randomPoints[3], point5 = randomPoints[4]
         
@@ -131,13 +140,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let move5 = SKAction.moveTo(point2, duration: NSTimeInterval(time5))
         
         let seq = SKAction.sequence([move2, move3, move4, move5])
-        
-        print("HERE: " + String(iceCream!.position))
-        iceCream!.runAction(move1)
-        iceCream!.runAction(SKAction.repeatActionForever(seq))
-        
-        print(randomPoints)
-        
+        let repeatAction = SKAction.repeatActionForever(seq)
+        iceCream!.runAction(SKAction.sequence([move1,repeatAction]))
     }
     
     
@@ -233,9 +237,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let soundURL = NSBundle.mainBundle().URLForResource("highHatRoll", withExtension: "mp3") {
             highHatSound = SKAudioNode(URL: soundURL)
             addChild(highHatSound)
+            removeSound(highHatSound, waitTime: 1.0)
         }
-        
-        removeSound(highHatSound, waitTime: 1.0)
         
         let wait = SKAction.waitForDuration(2.5)
         let killMouth = SKAction.runBlock { 
@@ -259,7 +262,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first
         let location = touch!.locationInNode(self)
-        if mouth!.frame.contains(location) {
+        if mouth!.frame.contains(location) && mouthIsReady {
             touchPoint = location
             touching = true
         }
@@ -289,7 +292,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBeginContact(contact: SKPhysicsContact) {
         
-        
+//        *********  MOUTH HITS ICE CREAM  *********
         
         if (contact.bodyA.categoryBitMask == BodyType.iceCream.rawValue) &&
             (contact.bodyB.categoryBitMask == BodyType.mouth.rawValue) ||
@@ -299,6 +302,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let contactPoint = contact.contactPoint
             
             score += 1
+            scoreLabel!.text = "SCORE: \(score)"
             
             // EXPLOSION //
             
@@ -324,14 +328,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 mouth!.removeAllActions()
                 mouth!.removeFromParent()
-                fadeInMouth()
+//                fadeInMouth()
                 removeSound(highHatSound, waitTime: 0.0)
                 
                 if let soundURL = NSBundle.mainBundle().URLForResource("coin", withExtension: "mp3") {
                     coinSound = SKAudioNode(URL: soundURL)
                     addChild(coinSound)
+                    removeSound(coinSound, waitTime: 1)
                 }
-                removeSound(coinSound, waitTime: 1)
                 
                 self.addChild(explosion1)
                 self.addChild(explosion2)
@@ -350,12 +354,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 explosion2.runAction(SKAction.sequence([wait, removeExplotion]))
                 explosion3.runAction(SKAction.sequence([wait, removeExplotion]))
                 
-                if score == 1 {
+                if score == 10 {
                     
-                    let create = SKAction.runBlock({ self.createRedSquare()})
+                    redSquare = RedSquare(imageNamed: "red square")
+                    redSquare2 = RedSquare(imageNamed: "red square")
+                    let createFirstSquare = SKAction.runBlock({ self.createRedSquare(self.redSquare!)})
+                    let createSecondSquare = SKAction.runBlock({ self.createRedSquare(self.redSquare2!)})
                     let wait = SKAction.waitForDuration(3.0)
-                    let seq = SKAction.sequence([create,wait,create])
+                    let seq = SKAction.sequence([createFirstSquare,wait,createSecondSquare])
                     self.runAction(seq)
+                    self.createIceCream()
+                    
+                } else if score == 20 {
+                    
+                    redSquare?.removeAllActions()
+                    redSquare?.removeFromParent()
+                    redSquare2?.removeAllActions()
+                    redSquare2?.removeFromParent()
+                    
+                    for i in 0...spikes.count - 1 {
+                        var thisSpike = spikes[i]
+                        thisSpike = Spike(imageNamed: "spike")
+                        createSpike(thisSpike!, position: CGPointMake(CGFloat(i * 80) + 18 + (thisSpike!.size.width / 2), 500 ))
+                    }
                     
                     self.createIceCream()
                     
@@ -369,22 +390,71 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
         
+        //        *********  MOUTH HITS ICE CREAM  *********
+        
+        else if (contact.bodyA.categoryBitMask == BodyType.mouth.rawValue) &&
+            (contact.bodyB.categoryBitMask == BodyType.spike.rawValue) ||
+            (contact.bodyA.categoryBitMask == BodyType.spike.rawValue) &&
+            (contact.bodyB.categoryBitMask == BodyType.mouth.rawValue) {
+            
+            let contactPoint = contact.contactPoint
+            
+            if let toothExplosion = SKEmitterNode(fileNamed: "ToothExplosion") {
+                toothExplosion.particleColor = SKColor.whiteColor()
+//                toothExplosion.particleColorBlendFactor = 1.0;
+                toothExplosion.particleColorSequence = nil;
+                toothExplosion.position = contactPoint
+                addChild(toothExplosion)
+            }
+            
+            if let soundURL = NSBundle.mainBundle().URLForResource("teeth2", withExtension: "mp3") {
+                teethSound = SKAudioNode(URL: soundURL)
+                addChild(teethSound)
+                removeSound(teethSound, waitTime: 2)
+            }
+            
+            mouth!.removeAllActions()
+            mouth!.removeFromParent()
+        }
+        
+//        *********  MOUTH HITS RED SQUARE  *********
+        
+        else if (contact.bodyA.categoryBitMask == BodyType.mouth.rawValue) &&
+            (contact.bodyB.categoryBitMask == BodyType.redSquare.rawValue) ||
+            (contact.bodyA.categoryBitMask == BodyType.redSquare.rawValue) &&
+            (contact.bodyB.categoryBitMask == BodyType.mouth.rawValue) {
+            
+            if let soundURL = NSBundle.mainBundle().URLForResource("bounce", withExtension: "mp3") {
+                bounceSound = SKAudioNode(URL: soundURL)
+                addChild(bounceSound)
+                removeSound(bounceSound, waitTime: 1.5)
+            }
+        }
+        
+//        *********  END COLLISION STATEMENTS  *********
+        
     }
     
-    func createRedSquare() {
+    func createRedSquare(square:RedSquare) {
         
-        redSquare = RedSquare(imageNamed: "red square")
+//        redSquare = RedSquare(imageNamed: "red square")
         
-        addChild(redSquare!)
+        addChild(square)
         let leftPosition = CGPoint(x: (redSquare?.size.width)! / 2, y: size.height / 2)
         let rightPosition = CGPoint(x: size.width - (redSquare?.size.width)! / 2, y: size.height / 2)
-        redSquare!.position = leftPosition
+        square.position = leftPosition
         
         let moveRight = SKAction.moveTo(rightPosition, duration: 3.0)
         let moveLeft = SKAction.moveTo(leftPosition, duration: 3.0)
         let seq = SKAction.sequence([moveRight,moveLeft])
         
-        redSquare!.runAction(SKAction.repeatActionForever(seq))
+        square.runAction(SKAction.repeatActionForever(seq))
+    }
+    
+    func createSpike(aSpike:Spike, position: CGPoint) {
+        
+        aSpike.position = position
+        addChild(aSpike)
     }
     
     func winLabel() {
@@ -394,6 +464,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         label.horizontalAlignmentMode = .Center
         label.position = CGPoint(x: size.width / 2, y: size.height / 2)
         addChild(label)
+    }
+    
+    func makeScoreLabel() {
+        
+        scoreLabel = SKLabelNode.init(text: "SCORE: \(score)")
+        scoreLabel!.color = SKColor.whiteColor()
+        scoreLabel!.horizontalAlignmentMode = .Left
+        scoreLabel!.position = CGPoint(x: 0, y: size.height - 20)
+        scoreLabel!.fontSize = 20
+        addChild(scoreLabel!)
     }
    
     override func update(currentTime: CFTimeInterval) {

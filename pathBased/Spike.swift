@@ -1,19 +1,15 @@
 //
-//  Mouth.swift
+//  Spike.swift
 //  pathBased
 //
-//  Created by Luke Morse on 8/18/16.
+//  Created by Luke Morse on 8/26/16.
 //  Copyright © 2016 Luke Morse. All rights reserved.
 //
 
 import Foundation
 import SpriteKit
 
-protocol SpriteOffScreenDelegate {
-    func spriteOffScrene()
-}
-
-class Mouth:SKSpriteNode {
+class Spike:SKSpriteNode {
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -23,21 +19,21 @@ class Mouth:SKSpriteNode {
         
         let imageTexture = SKTexture(imageNamed: imageNamed)
         super.init(texture: imageTexture, color: SKColor.whiteColor(), size: imageTexture.size())
+        let bodyWidth = imageTexture.size().width * 0.7
+        let bodyHeight = imageTexture.size().height * 0.7
+        let bodySize = CGSize.init(width: bodyWidth, height: bodyHeight)
+        let body = SKPhysicsBody(rectangleOfSize: bodySize)
         
-        zPosition = 2
+        body.categoryBitMask = BodyType.spike.rawValue
+        body.contactTestBitMask = BodyType.mouth.rawValue
         
-        let body = SKPhysicsBody.init(rectangleOfSize: imageTexture.size())
-        body.categoryBitMask = BodyType.mouth.rawValue
-        body.contactTestBitMask = BodyType.iceCream.rawValue | BodyType.redSquare.rawValue | BodyType.spike.rawValue
-        body.collisionBitMask = BodyType.redSquare.rawValue
         body.affectedByGravity = false
-        body.density = 5.0
+        body.dynamic = false
         
         self.physicsBody = body
-        self.name = "mouth"
+        self.name = "spike"
         self.userInteractionEnabled = false
-        self.setScale(0.11)
+        self.setScale(0.5)
     }
-    
     
 }

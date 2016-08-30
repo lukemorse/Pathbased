@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF58F61E1D7396B000A67D99 /* ToothExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = AF58F61D1D7396B000A67D99 /* ToothExplosion.sks */; };
+		AF74D0B01D7502A40038C056 /* tooth.png in Resources */ = {isa = PBXBuildFile; fileRef = AF74D0AF1D7502A40038C056 /* tooth.png */; };
+		AF74D0B41D7509E50038C056 /* highHatRoll.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF74D0B11D7509E50038C056 /* highHatRoll.mp3 */; };
+		AF74D0B61D7509E50038C056 /* teeth2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF74D0B31D7509E50038C056 /* teeth2.mp3 */; };
+		AF74D0B81D750A080038C056 /* teeth1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF74D0B71D750A080038C056 /* teeth1.mp3 */; };
+		AF74D0BA1D750E320038C056 /* bounce.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF74D0B91D750E320038C056 /* bounce.mp3 */; };
 		AF8187681D6603FA00C0DD4F /* IceCream.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8187671D6603FA00C0DD4F /* IceCream.swift */; };
 		AF81876A1D661EB000C0DD4F /* Mouth.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8187691D661EB000C0DD4F /* Mouth.swift */; };
 		AF81876E1D66314000C0DD4F /* greenSprinkle.png in Resources */ = {isa = PBXBuildFile; fileRef = AF81876B1D66314000C0DD4F /* greenSprinkle.png */; };
@@ -24,12 +30,19 @@
 		AF8AC94C1D5CF2CF00D1C3E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF8AC94A1D5CF2CF00D1C3E4 /* LaunchScreen.storyboard */; };
 		AF8AC9551D5D251900D1C3E4 /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = AF8AC9531D5D251900D1C3E4 /* Explosion.sks */; };
 		AF8F128E1D63A55C008F2D71 /* mouth.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AF8F128D1D63A55C008F2D71 /* mouth.atlas */; };
-		AF8F12981D63EC93008F2D71 /* highHatRoll.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF8F12951D63EC93008F2D71 /* highHatRoll.mp3 */; };
 		AF8F12991D63EC93008F2D71 /* coin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF8F12961D63EC93008F2D71 /* coin.mp3 */; };
 		AF8F129A1D63EC93008F2D71 /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF8F12971D63EC93008F2D71 /* background.mp3 */; };
+		AF9370B61D70ACC400AC29B4 /* Spike.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9370B51D70ACC400AC29B4 /* Spike.swift */; };
+		AF9370B81D70B78600AC29B4 /* spike.png in Resources */ = {isa = PBXBuildFile; fileRef = AF9370B71D70B78600AC29B4 /* spike.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF58F61D1D7396B000A67D99 /* ToothExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ToothExplosion.sks; sourceTree = "<group>"; };
+		AF74D0AF1D7502A40038C056 /* tooth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tooth.png; sourceTree = "<group>"; };
+		AF74D0B11D7509E50038C056 /* highHatRoll.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = highHatRoll.mp3; sourceTree = "<group>"; };
+		AF74D0B31D7509E50038C056 /* teeth2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = teeth2.mp3; sourceTree = "<group>"; };
+		AF74D0B71D750A080038C056 /* teeth1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = teeth1.mp3; sourceTree = "<group>"; };
+		AF74D0B91D750E320038C056 /* bounce.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bounce.mp3; sourceTree = "<group>"; };
 		AF8187671D6603FA00C0DD4F /* IceCream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceCream.swift; sourceTree = "<group>"; };
 		AF8187691D661EB000C0DD4F /* Mouth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mouth.swift; sourceTree = "<group>"; };
 		AF81876B1D66314000C0DD4F /* greenSprinkle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = greenSprinkle.png; path = mouth.atlas/greenSprinkle.png; sourceTree = "<group>"; };
@@ -49,9 +62,10 @@
 		AF8AC94D1D5CF2CF00D1C3E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF8AC9531D5D251900D1C3E4 /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
 		AF8F128D1D63A55C008F2D71 /* mouth.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = mouth.atlas; sourceTree = "<group>"; };
-		AF8F12951D63EC93008F2D71 /* highHatRoll.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = highHatRoll.mp3; sourceTree = "<group>"; };
 		AF8F12961D63EC93008F2D71 /* coin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coin.mp3; sourceTree = "<group>"; };
 		AF8F12971D63EC93008F2D71 /* background.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background.mp3; sourceTree = "<group>"; };
+		AF9370B51D70ACC400AC29B4 /* Spike.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spike.swift; sourceTree = "<group>"; };
+		AF9370B71D70B78600AC29B4 /* spike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spike.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,9 +82,12 @@
 		AF8187661D66033200C0DD4F /* sounds */ = {
 			isa = PBXGroup;
 			children = (
-				AF8F12951D63EC93008F2D71 /* highHatRoll.mp3 */,
 				AF8F12961D63EC93008F2D71 /* coin.mp3 */,
+				AF74D0B91D750E320038C056 /* bounce.mp3 */,
 				AF8F12971D63EC93008F2D71 /* background.mp3 */,
+				AF74D0B11D7509E50038C056 /* highHatRoll.mp3 */,
+				AF74D0B71D750A080038C056 /* teeth1.mp3 */,
+				AF74D0B31D7509E50038C056 /* teeth2.mp3 */,
 			);
 			name = sounds;
 			sourceTree = "<group>";
@@ -81,9 +98,12 @@
 				AF8187661D66033200C0DD4F /* sounds */,
 				AF8F128D1D63A55C008F2D71 /* mouth.atlas */,
 				AF8AC9531D5D251900D1C3E4 /* Explosion.sks */,
+				AF58F61D1D7396B000A67D99 /* ToothExplosion.sks */,
 				AF81876B1D66314000C0DD4F /* greenSprinkle.png */,
 				AF81876C1D66314000C0DD4F /* yellowSprinkle.png */,
 				AF8187711D66423700C0DD4F /* red square.png */,
+				AF9370B71D70B78600AC29B4 /* spike.png */,
+				AF74D0AF1D7502A40038C056 /* tooth.png */,
 				AF81876D1D66314000C0DD4F /* sprinkle.png */,
 				AF8187771D68BA6700C0DD4F /* head.png */,
 				AF8AC93C1D5CF2CF00D1C3E4 /* pathBased */,
@@ -105,6 +125,7 @@
 				AF8AC93D1D5CF2CF00D1C3E4 /* AppDelegate.swift */,
 				AF8AC93F1D5CF2CF00D1C3E4 /* GameScene.sks */,
 				AF8AC9411D5CF2CF00D1C3E4 /* GameScene.swift */,
+				AF9370B51D70ACC400AC29B4 /* Spike.swift */,
 				AF8187731D6642C300C0DD4F /* RedSquare.swift */,
 				AF8187691D661EB000C0DD4F /* Mouth.swift */,
 				AF8187671D6603FA00C0DD4F /* IceCream.swift */,
@@ -176,20 +197,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF74D0B01D7502A40038C056 /* tooth.png in Resources */,
 				AF8AC9401D5CF2CF00D1C3E4 /* GameScene.sks in Resources */,
-				AF8F12981D63EC93008F2D71 /* highHatRoll.mp3 in Resources */,
+				AF74D0B41D7509E50038C056 /* highHatRoll.mp3 in Resources */,
 				AF81876F1D66314000C0DD4F /* yellowSprinkle.png in Resources */,
+				AF74D0BA1D750E320038C056 /* bounce.mp3 in Resources */,
 				AF8AC94C1D5CF2CF00D1C3E4 /* LaunchScreen.storyboard in Resources */,
 				AF8F129A1D63EC93008F2D71 /* background.mp3 in Resources */,
 				AF8AC9491D5CF2CF00D1C3E4 /* Assets.xcassets in Resources */,
 				AF8187721D66423700C0DD4F /* red square.png in Resources */,
+				AF58F61E1D7396B000A67D99 /* ToothExplosion.sks in Resources */,
+				AF9370B81D70B78600AC29B4 /* spike.png in Resources */,
 				AF81876E1D66314000C0DD4F /* greenSprinkle.png in Resources */,
 				AF8187701D66314000C0DD4F /* sprinkle.png in Resources */,
 				AF8AC9471D5CF2CF00D1C3E4 /* Main.storyboard in Resources */,
 				AF8AC9551D5D251900D1C3E4 /* Explosion.sks in Resources */,
 				AF8187781D68BA6700C0DD4F /* head.png in Resources */,
+				AF74D0B61D7509E50038C056 /* teeth2.mp3 in Resources */,
 				AF8F128E1D63A55C008F2D71 /* mouth.atlas in Resources */,
 				AF8F12991D63EC93008F2D71 /* coin.mp3 in Resources */,
+				AF74D0B81D750A080038C056 /* teeth1.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF9370B61D70ACC400AC29B4 /* Spike.swift in Sources */,
 				AF8187741D6642C300C0DD4F /* RedSquare.swift in Sources */,
 				AF8AC9421D5CF2CF00D1C3E4 /* GameScene.swift in Sources */,
 				AF8AC9441D5CF2CF00D1C3E4 /* GameViewController.swift in Sources */,
